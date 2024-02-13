@@ -3,6 +3,7 @@ import axios from "axios";
 
 const App = () => {
   const [listData, setListData] = useState([]);
+  const [showNewListColumn, setShowNewListColumn] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,12 +26,17 @@ const App = () => {
 
   const list1 = filterEvenOddElements(listData, true);
   const list2 = filterEvenOddElements(listData, false);
+  const handleCreateListClick = () => {
+    setShowNewListColumn(true);
+  };
 
   return (
     <>
       <div style={{ textAlign: "center" }}>
         <h1>list creation</h1>
-        <button style={{ padding: "10px" }}>create a new list</button>
+        <button style={{ padding: "10px" }} onClick={handleCreateListClick}>
+          create a new list
+        </button>
       </div>
       <div
         style={{
@@ -43,7 +49,10 @@ const App = () => {
           <div
             style={{ overflow: "auto", maxHeight: "500px", padding: "30px" }}
           >
-            <h2>List 1:</h2>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <input type="checkbox" />
+              <h4>List 1: ({list1.length})</h4>
+            </div>
             <ul>
               {list1.map((item, index) => (
                 <div
@@ -73,12 +82,25 @@ const App = () => {
             </ul>
           </div>
         )}
+        {showNewListColumn && (
+          <div
+            style={{ overflow: "auto", maxHeight: "500px", padding: "30px" }}
+          >
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <h4>List 3: </h4>
+              <ul></ul>
+            </div>
+          </div>
+        )}
 
         {Array.isArray(list2) && list2.length > 0 && (
           <div
             style={{ overflow: "auto", maxHeight: "500px", padding: "30px" }}
           >
-            <h2>List 2:</h2>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <input type="checkbox" />
+              <h4>List 2: ({list2.length})</h4>
+            </div>
             <ul>
               {list2.map((item, index) => (
                 <div
